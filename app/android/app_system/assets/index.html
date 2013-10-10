@@ -14,7 +14,14 @@ window.onload = function() {
       });
     navigator.system.getDisplayInfo(function(display) {
         console.log(display);
-        document.getElementById("display").innerHTML = "Result: " + display;
+        var msg = "";
+        for (var i = 0; i < display.displays.length; ++i) {
+          var prop = Object.getOwnPropertyNames(display.displays[i]);
+          for (var j = 0; j < prop.length; ++j) {
+            msg += prop[j] + ": " + display.displays[i][prop[j]] + "<br>";
+          }
+        }
+        document.getElementById("display").innerHTML = "Display: " + msg;
       });
     navigator.system.getMemoryInfo(function(memory) {
         console.log(memory);
@@ -38,6 +45,14 @@ window.onload = function() {
         ondetach_num += 1;
         document.getElementById("ondetach").innerHTML = "Result: " + ondetach_num + "-" + msg.content;
       });
+    navigator.system.addEventListener("onconnect", function(msg) {
+        console.log(msg);
+        document.getElementById("onconnect").innerHTML = "Display: " + msg.content + " connect.";
+      });
+    navigator.system.addEventListener("ondisconnect", function(msg) {
+        console.log(msg);
+        document.getElementById("ondisconnect").innerHTML = "Display: " + msg.content + " disconnect.";
+      });
   } catch(e) {
     console.log(e);
   }
@@ -58,6 +73,9 @@ SysApp EXAMPLE
   <p>listenStorage</p>
   <p id="onattach">TESTTEST</p>
   <p id="ondetach">TESTTEST</p>
+  <p>listenDisplay</p>
+  <p id="onconnect">TESTTEST</p>
+  <p id="ondisconnect">TESTTEST</p>
 </div>
 </body>
 </html>

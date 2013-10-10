@@ -16,12 +16,14 @@ public class DeviceCapabilities extends XWalkExtension {
     private static final String TAG = "DeviceCapabilities";
 
     private DeviceCapabilitiesCPU mCPU = new DeviceCapabilitiesCPU();
+    private DeviceCapabilitiesDisplay mDisplay;
     private DeviceCapabilitiesMemory mMemory = new DeviceCapabilitiesMemory();
     private DeviceCapabilitiesStorage mStorage = new DeviceCapabilitiesStorage(this);
 
     public DeviceCapabilities(String jsApiContent, XWalkExtensionContext context) {
         super(NAME, jsApiContent, context);
         mStorage.setExtensionContext(context);
+        mDisplay = new DeviceCapabilitiesDisplay(this, context);
     }
 
     private void handleMessage(String message) {
@@ -46,8 +48,7 @@ public class DeviceCapabilities extends XWalkExtension {
             if (cmd.equals("getCPUInfo"))
                 jsonOutput = mCPU.getInfo();
             else if (cmd.equals("getDisplayInfo"))
-                // FIXME(guanxian): not implemented.
-                ;
+                jsonOutput.put("displays", mDisplay.getInfo());
             else if (cmd.equals("getMemoryInfo"))
                 jsonOutput = mMemory.getInfo();
             else if (cmd.equals("getStorageInfo"))
@@ -62,6 +63,7 @@ public class DeviceCapabilities extends XWalkExtension {
     private void handleAddEventListener(String eventName) {
         if (eventName.equals("onattach") || eventName.equals("ondetach"))
             mStorage.registerListener();
+        //if (eventName.equals("onconnect"))
     }
 
     @Override
@@ -73,5 +75,6 @@ public class DeviceCapabilities extends XWalkExtension {
     @Override
     public void onDestroy() {
         mStorage.unregisterListener();
+        mDisplay.unregisterListener();
     }
 }
