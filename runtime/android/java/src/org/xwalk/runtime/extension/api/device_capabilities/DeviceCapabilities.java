@@ -22,6 +22,7 @@ public class DeviceCapabilities extends XWalkExtension {
     private DeviceCapabilitiesDisplay mDisplay;
     private DeviceCapabilitiesMemory mMemory;
     private DeviceCapabilitiesStorage mStorage;
+    private DeviceCapabilitiesCodecs mCodecs;
 
     public DeviceCapabilities(String jsApiContent, XWalkExtensionContext context) {
         super(NAME, jsApiContent, context);
@@ -30,6 +31,7 @@ public class DeviceCapabilities extends XWalkExtension {
         mDisplay = new DeviceCapabilitiesDisplay(this, context);
         mMemory = new DeviceCapabilitiesMemory(this, context);
         mStorage = new DeviceCapabilitiesStorage(this, context);
+        mCodecs = new DeviceCapabilitiesCodecs(this, context);
     }
 
     private void handleMessage(int instanceID, String message) {
@@ -60,6 +62,8 @@ public class DeviceCapabilities extends XWalkExtension {
                 jsonOutput.put("data", mMemory.getInfo());
             } else if (cmd.equals("getStorageInfo")) {
                 jsonOutput.put("data", mStorage.getInfo());
+            } else if (cmd.equals("getCodecsInfo")) {
+                jsonOutput.put("data", mCodecs.getInfo());
             }
             jsonOutput.put("_promise_id", promiseId);
             this.postMessage(instanceID, jsonOutput.toString());

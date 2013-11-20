@@ -17,6 +17,8 @@
 #include "xwalk/runtime/browser/android/xwalk_settings.h"
 #include "xwalk/runtime/browser/android/xwalk_web_contents_delegate.h"
 
+#include "xwalk/extensions/common/android/device_capabilities_codecs.h"
+
 namespace xwalk {
 
 static base::android::RegistrationMethod kXWalkRegisteredMethods[] = {
@@ -33,6 +35,8 @@ static base::android::RegistrationMethod kXWalkRegisteredMethods[] = {
   { "XWalkExtensionAndroid", extensions::RegisterXWalkExtensionAndroid },
   { "XWalkSettings", RegisterXWalkSettings },
   { "XWalkWebContentsDelegate", RegisterXWalkWebContentsDelegate },
+
+  { "DeviceCapabilitiesCodecs", extensions::RegisterDeviceCapabilitiesCodecs},
 };
 
 bool RegisterJni(JNIEnv* env) {

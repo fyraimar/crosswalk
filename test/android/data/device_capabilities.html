@@ -93,6 +93,12 @@
               onSuccess();
             }, Error);
 
+        system.getCodecsInfo()
+            .then(function(codec) {
+              document.getElementById('codecs').innerHTML = 'echo' + codec.echo;
+              onSuccess();
+            }, Error);
+
         system.addEventListener('onattach', function(storage) {
             var output = document.getElementById('event');
             var msg = enumerateAllProps(storage);
@@ -143,6 +149,10 @@
   <div class="storage">
     <p class="subtitle center">Storage</p>
     <textarea id="storage" readonly=true></textarea>
+  </div>
+  <div class="codecs">
+    <p class="subtitle center">CodecsInfo</p>
+    <p class="text" id="codecs"></p>
   </div>
   <div class="event">
     <p class="subtitle center">Event</p>

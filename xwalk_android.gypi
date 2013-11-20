@@ -128,6 +128,17 @@
       'includes': ['../build/jni_generator.gypi'],
     },
     {
+      'target_name': 'xwalk_extentions_android_device_capabilities_native_jni',
+      'type': 'none',
+      'variables': {
+        'jni_gen_package': 'xwalk',
+      },
+      'sources': [
+        'runtime/android/java/src/org/xwalk/runtime/extension/api/device_capabilities/DeviceCapabilitiesCodecs.java',
+      ],
+      'includes': ['../build/jni_generator.gypi'],
+    },
+    {
       'target_name': 'xwalk_runtime_lib_apk',
       'type': 'none',
       'dependencies': [
@@ -137,6 +148,7 @@
         'xwalk_core_java',
         'xwalk_runtime_lib_apk_extension',
         'xwalk_runtime_lib_apk_pak',
+        'xwalk_extentions_android_device_capabilities_native_jni',
       ],
       'variables': {
         'apk_name': 'XWalkRuntimeLib',

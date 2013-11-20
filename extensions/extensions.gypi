@@ -49,6 +49,8 @@
       'sources': [
         'common/android/xwalk_extension_android.cc',
         'common/android/xwalk_extension_android.h',
+        'common/android/device_capabilities_codecs.h',
+        'common/android/device_capabilities_codecs.cc',
       ],
     }],
   ],
